@@ -23,6 +23,9 @@ public class Player : KinematicBody
 
     private Vector3 _velocity = Vector3.Zero;
 
+    // Emitted when the player was hit by a mob.
+    [Signal]
+    public delegate void Hit();
 
 
     // Called when the node enters the scene tree for the first time.
@@ -65,7 +68,6 @@ public class Player : KinematicBody
         // Jumping.
         if (IsOnFloor() && Input.IsActionJustPressed("jump"))
         {
-            GD.Print("whatever");
             _velocity.y += JumpImpulse;
         }
 
@@ -94,6 +96,19 @@ public class Player : KinematicBody
                 }
             }
         }
+    }
+
+    // Don't forget to rebuild the project so the editor knows about the new signal.
+    private void Die()
+    {
+        EmitSignal(nameof(Hit));
+        QueueFree();
+    }
+
+    // We also specified this function name in PascalCase in the editor's connection window
+    public void OnMobDetectorBodyEntered(Node body)
+    {
+        Die();
     }
 
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.

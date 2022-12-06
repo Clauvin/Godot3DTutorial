@@ -34,4 +34,10 @@ public class Main : Node
         AddChild(mob);
 
     }
+
+    // We also specified this function name in PascalCase in the editor's connection window
+    public void OnPlayerHit()
+    {
+        GetNode<Timer>("MobTimer").Stop();
+    }
 }
