@@ -19,7 +19,7 @@ public class Player : KinematicBody
 
     // Vertical impulse applied to the character upon jumping in meters per second.
     [Export]
-    public int JumpImpulse = 20;
+    public int JumpImpulse = 40;
 
     private Vector3 _velocity = Vector3.Zero;
 
@@ -56,12 +56,6 @@ public class Player : KinematicBody
             direction.z -= 1f;
         }
 
-        if (IsOnFloor() && Input.IsActionJustPressed("jump"))
-        {
-            GD.Print("whatever");
-            _velocity.y += JumpImpulse;
-        }
-
         if (direction != Vector3.Zero)
         {
             direction = direction.Normalized();
@@ -69,6 +63,11 @@ public class Player : KinematicBody
         }
 
         // Jumping.
+        if (IsOnFloor() && Input.IsActionJustPressed("jump"))
+        {
+            GD.Print("whatever");
+            _velocity.y += JumpImpulse;
+        }
 
 
         // Ground velocity
