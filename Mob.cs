@@ -12,6 +12,10 @@ public class Mob : KinematicBody
 
     private Vector3 _velocity = Vector3.Zero;
 
+    // Emitted when the played jumped on the mob.
+    [Signal]
+    public delegate void Squashed();
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -36,12 +40,18 @@ public class Mob : KinematicBody
         // We calculate a forward velocity that represents the speed.
         _velocity = Vector3.Forward * randomSpeed;
         // We then rotate the vector based on the mob's Y rotation to move in the direction it's looking
-        _velocity = _velocity.Rotated(Vector3.Up, Rotation.y);
+        _velocity = _velocity.Rotated(Vector3.Up, Rotation.y);  
     }
 
     // We also specified this function name in PascalCase in the editor's connection window
     public void OnVisibilityNotifierScreenExited()
     {
+        QueueFree();
+    }
+
+    public void Squash()
+    {
+        EmitSignal(nameof(Squashed));
         QueueFree();
     }
 }

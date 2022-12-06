@@ -5,14 +5,25 @@ public class Player : KinematicBody
 {
     // Don't forget to rebuild the project so the editor knows about the new export variable.
 
+    // Vertical impulse applied to the character upon bouncing over a mob in meters per second.
+    [Export]
+    public int BounceImpulse = 16;
+
     // How fast the player moves in meters per second.
     [Export]
     public int Speed = 14;
+    
     // The downward acceleration when in the air, in meters per second squared.
     [Export]
     public int FallAcceleration = 75;
 
+    // Vertical impulse applied to the character upon jumping in meters per second.
+    [Export]
+    public int JumpImpulse = 20;
+
     private Vector3 _velocity = Vector3.Zero;
+
+
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -51,6 +62,12 @@ public class Player : KinematicBody
             GetNode<Spatial>("Pivot").LookAt(Translation + direction, Vector3.Up);
         }
 
+        // Jumping.
+        if (IsOnFloor() && Input.IsActionJustPressed("jump"))
+        {
+            _velocity.y += JumpImpulse;
+        }
+
         // Ground velocity
         _velocity.x = direction.x * Speed;
         _velocity.z = direction.z * Speed;
@@ -58,6 +75,23 @@ public class Player : KinematicBody
         _velocity.y -= FallAcceleration * delta;
         // Moving the character
         _velocity = MoveAndSlide(_velocity, Vector3.Up);
+
+        for (int index = 0; index < GetSlideCount(); index++)
+        {
+            // We check every collision that occurred this frame.
+            KinematicCollision collision = GetSlideCollision(index);
+            // If we collide with a monster...
+            if (collision.Collider is Mob mob && mob.IsInGroup("mob"))
+            {
+                // ...we check that we are hitting it from above.
+                if (Vector3.Up.Dot(collision.Normal) > 0.1f)
+                {
+                    // If so, we squash it and bounce.
+                    mob.Squash();
+                    _velocity.y = BounceImpulse;
+                }
+            }
+        }
     }
 
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.
