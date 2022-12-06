@@ -56,6 +56,12 @@ public class Player : KinematicBody
             direction.z -= 1f;
         }
 
+        if (IsOnFloor() && Input.IsActionJustPressed("jump"))
+        {
+            GD.Print("whatever");
+            _velocity.y += JumpImpulse;
+        }
+
         if (direction != Vector3.Zero)
         {
             direction = direction.Normalized();
@@ -63,10 +69,7 @@ public class Player : KinematicBody
         }
 
         // Jumping.
-        if (IsOnFloor() && Input.IsActionJustPressed("jump"))
-        {
-            _velocity.y += JumpImpulse;
-        }
+
 
         // Ground velocity
         _velocity.x = direction.x * Speed;
