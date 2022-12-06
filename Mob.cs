@@ -3,8 +3,6 @@ using System;
 
 public class Mob : KinematicBody
 {
-    // Don't forget to rebuild the project so the editor knows about the new export variable.
-
     // Minimum speed of the mob in meters per second
     [Export]
     public int MinSpeed = 10;
@@ -13,6 +11,17 @@ public class Mob : KinematicBody
     public int MaxSpeed = 18;
 
     private Vector3 _velocity = Vector3.Zero;
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        
+    }
+
+    public override void _PhysicsProcess(float delta)
+    {
+        MoveAndSlide(_velocity);
+    }
 
     // We will call this function from the Main scene
     public void Initialize(Vector3 startPosition, Vector3 playerPosition)
@@ -28,11 +37,6 @@ public class Mob : KinematicBody
         _velocity = Vector3.Forward * randomSpeed;
         // We then rotate the vector based on the mob's Y rotation to move in the direction it's looking
         _velocity = _velocity.Rotated(Vector3.Up, Rotation.y);
-    }
-
-    public override void _PhysicsProcess(float delta)
-    {
-        MoveAndSlide(_velocity);
     }
 
     // We also specified this function name in PascalCase in the editor's connection window

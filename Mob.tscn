@@ -20,3 +20,5 @@ shape = SubResource( 1 )
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.253921, 0.382742 )
 aabb = AABB( -1, -0.558922, -1.7343, 2, 1.11784, 3.4686 )
+
+[connection signal="screen_exited" from="VisibilityNotifier" to="." method="OnVisibilityNotifierScreenExited"]

@@ -21,6 +21,11 @@ This is a finished version of the game featured in the 'Your first 3D game'
 tutorial in the official documentation."
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=720
+window/size/height=540
+
 [input]
 
 move_left={
