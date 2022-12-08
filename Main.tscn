@@ -52,10 +52,10 @@ transform = Transform( 1, 0, 0, 0, 0.488317, 0.872667, 0, -0.872667, 0.488317, 0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
 [node name="CameraPivot" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, -7.45058e-08, 1, 0, -1, -7.45058e-08, 0, 13.765, 0 )
+transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 13.765, 0 )
 
 [node name="Camera" type="Camera" parent="CameraPivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.12436, 7 )
 projection = 1
 size = 19.0
 

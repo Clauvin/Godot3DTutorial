@@ -96,7 +96,21 @@ public class Player : KinematicBody
                 }
             }
         }
+
+        if (direction != Vector3.Zero)
+        {
+            // ...
+            GetNode<AnimationPlayer>("AnimationPlayer").PlaybackSpeed = 4;
+        }
+        else
+        {
+            GetNode<AnimationPlayer>("AnimationPlayer").PlaybackSpeed = 1;
+        }
+
+        var pivot = GetNode<Spatial>("Pivot");
+        pivot.Rotation = new Vector3(Mathf.Pi / 6f * _velocity.y / JumpImpulse, pivot.Rotation.y, pivot.Rotation.z);
     }
+
 
     // Don't forget to rebuild the project so the editor knows about the new signal.
     private void Die()

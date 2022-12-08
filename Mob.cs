@@ -41,6 +41,8 @@ public class Mob : KinematicBody
         _velocity = Vector3.Forward * randomSpeed;
         // We then rotate the vector based on the mob's Y rotation to move in the direction it's looking
         _velocity = _velocity.Rotated(Vector3.Up, Rotation.y);
+
+        GetNode<AnimationPlayer>("AnimationPlayer").PlaybackSpeed = randomSpeed / MinSpeed;
     }
 
     // We also specified this function name in PascalCase in the editor's connection window
