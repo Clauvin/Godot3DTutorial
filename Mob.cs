@@ -40,7 +40,7 @@ public class Mob : KinematicBody
         // We calculate a forward velocity that represents the speed.
         _velocity = Vector3.Forward * randomSpeed;
         // We then rotate the vector based on the mob's Y rotation to move in the direction it's looking
-        _velocity = _velocity.Rotated(Vector3.Up, Rotation.y);  
+        _velocity = _velocity.Rotated(Vector3.Up, Rotation.y);
     }
 
     // We also specified this function name in PascalCase in the editor's connection window
